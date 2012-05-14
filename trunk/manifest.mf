@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+OpenIDE-Module: SourceCodeMetrics
+OpenIDE-Module-Localizing-Bundle: org/sourcecodemetrics/measurer/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
