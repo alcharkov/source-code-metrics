@@ -1,22 +1,21 @@
 /**
  * This file is part of SourceCodeMetrics project.
- * 
+ *
  * Copyright (C) 2012 Krystian Warzocha
  *
- * SourceCodeMetrics is free software: you can redistribute it and/or modify it 
- * under the terms of the GNU General Public License as published by the 
- * Free Software Foundation, either version 2 of the License, or 
+ * SourceCodeMetrics is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
- * 
- * SourceCodeMetrics is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+ *
+ * SourceCodeMetrics is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
- * 
- * You should have received a copy of the GNU General Public License along with 
+ *
+ * You should have received a copy of the GNU General Public License along with
  * SourceCodeMetrics. If not, see http://www.gnu.org/licenses/.
  */
-
 package org.sourcecodemetrics.measurer.model.methods;
 
 import org.sourcecodemetrics.measurer.api.CompilationUnitKind;
@@ -34,6 +33,7 @@ import org.sourcecodemetrics.measurer.util.CommentUtility;
 
 /**
  * This class is responsible for the measurement of metrics of the method.
+ *
  * @author Krystian Warzocha
  */
 class MethodMeasurer {
@@ -71,7 +71,10 @@ class MethodMeasurer {
             sb.append(it.next());
         }
 
-        if (m.c.getCompilationUnitKind() == CompilationUnitKind.INTERFACE) {
+        if (m.c.getCompilationUnitKind() == null) {
+            m.loc = 1;
+            m.locm = 0;
+        } else if (m.c.getCompilationUnitKind() == CompilationUnitKind.INTERFACE) {
             m.loc = 1;
             m.locm = 0;
         } else if (m.abstr) {
@@ -89,7 +92,7 @@ class MethodMeasurer {
     private void computeLOC() throws IOException {
         // calculation of LOC
         m.loc = 0;
-        int start = 0, end = 0; // contain the start and end elements of the 
+        int start = 0, end = 0; // contain the start and end elements of the
         String text = m.fo.asText();
         String p = m.name + " *\\(.*\\) *\\{";
         Pattern pattern = Pattern.compile(p, Pattern.DOTALL);
@@ -141,15 +144,16 @@ class MethodMeasurer {
     }
 
     /**
-     * This method is responsible for finding recursively all of the methods 
-     * used indirectly by the provided method. After this method executes the 
+     * This method is responsible for finding recursively all of the methods
+     * used indirectly by the provided method. After this method executes the
      * usedMethods parameter will contain all of the methods used directly and
-     * indirectly by the method. 
-     * @param method Method for which the set of methods used indirectly is 
+     * indirectly by the method.
+     *
+     * @param method Method for which the set of methods used indirectly is
      * built.
-     * @param usedMethods Before method execution it should contain the list of 
-     * methods used directly by the method and the method. After execution it 
-     * will contain the list of methods used directly and indirectly by the 
+     * @param usedMethods Before method execution it should contain the list of
+     * methods used directly by the method and the method. After execution it
+     * will contain the list of methods used directly and indirectly by the
      * method.
      */
     private void fillUsedMethods(MethodImpl method, Set<MethodImpl> usedMethods) {

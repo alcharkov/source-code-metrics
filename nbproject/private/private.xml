@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/AleksandrCh/Documents/NetBeansProjects/source-code-metrics/src/org/sourcecodemetrics/measurer/model/classes/ClassMeasurer.java</file>
+            <file>file:/C:/Users/AleksandrCh/Documents/NetBeansProjects/source-code-metrics/build.xml</file>
+            <file>file:/C:/Users/AleksandrCh/Documents/NetBeansProjects/source-code-metrics/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/AleksandrCh/Documents/NetBeansProjects/source-code-metrics/nbproject/project.xml</file>
+            <file>file:/C:/Users/AleksandrCh/Documents/NetBeansProjects/source-code-metrics/src/org/sourcecodemetrics/measurer/api/IPackage.java</file>
+            <file>file:/C:/Users/AleksandrCh/Documents/NetBeansProjects/source-code-metrics/src/org/sourcecodemetrics/measurer/model/classes/ClassImpl.java</file>
+            <file>file:/C:/Users/AleksandrCh/Documents/NetBeansProjects/source-code-metrics/manifest.mf</file>
+        </group>
+    </open-files>
 </project-private>

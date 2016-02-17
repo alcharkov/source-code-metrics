@@ -1,22 +1,21 @@
 /**
  * This file is part of SourceCodeMetrics project.
- * 
+ *
  * Copyright (C) 2012 Krystian Warzocha
  *
- * SourceCodeMetrics is free software: you can redistribute it and/or modify it 
- * under the terms of the GNU General Public License as published by the 
- * Free Software Foundation, either version 2 of the License, or 
+ * SourceCodeMetrics is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
- * 
- * SourceCodeMetrics is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+ *
+ * SourceCodeMetrics is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
- * 
- * You should have received a copy of the GNU General Public License along with 
+ *
+ * You should have received a copy of the GNU General Public License along with
  * SourceCodeMetrics. If not, see http://www.gnu.org/licenses/.
  */
-
 package org.sourcecodemetrics.measurer.model.classes;
 
 import org.sourcecodemetrics.measurer.model.methods.MethodImpl;
@@ -128,7 +127,6 @@ public class ClassMeasurer {
 //        int NOA = new AssertVisitor().scan(c.ct, null); // number of all of the asserts in the class
 //        double kloc = c.loc / 1000.0;
 //        c.nak = (int) (((double) NOA) / kloc);
-
         // counting the sums of metrics of methods
         c.vgAvg = 0;
         c.nopSum = 0;
@@ -212,6 +210,7 @@ public class ClassMeasurer {
 
     /**
      * Computes the LCOM1 metric on this class based on the set of methods.
+     *
      * @return LCOM1 metric for this class.
      */
     private int computeLCOM1() {
@@ -242,6 +241,7 @@ public class ClassMeasurer {
 
     /**
      * Computes the LCOM2 for this class.
+     *
      * @param lcom1 The value of LCOM1 for this class.
      * @return The LCOM2 metric for this class.
      */
@@ -262,14 +262,15 @@ public class ClassMeasurer {
     }
 
     /**
-     * The role of this method is to build the sets of methods which are 
-     * using the same class fields. Methods are inserted into the same set if
-     * they are using at least one common class field.
+     * The role of this method is to build the sets of methods which are using
+     * the same class fields. Methods are inserted into the same set if they are
+     * using at least one common class field.
+     *
      * @param all If it is false then only directly used fields are taken into
      * account. Otherwise all fields are taken into account (including fields
      * used indirectly, by calling other methods).
      * @return Collection of disjoint sets of methods, which do not use the same
-     * fields. 
+     * fields.
      */
     private Collection<Set<MethodImpl>> computeMethodSets(boolean all) {
         // helper object for building sets of methods
@@ -292,8 +293,9 @@ public class ClassMeasurer {
     }
 
     /**
-     * The role of this class is to collect the set of methods which are using 
+     * The role of this class is to collect the set of methods which are using
      * common class field. This is done for every field in the class.
+     *
      * @return The set of sets of methods using specified class field.
      */
     private List<Integer> computeMethodSets() {
@@ -316,9 +318,10 @@ public class ClassMeasurer {
     }
 
     /**
-     * The role of this class is to collect the set of methods which are using 
-     * common class field directly or indirectly.
-     * This is done for every field in the class.
+     * The role of this class is to collect the set of methods which are using
+     * common class field directly or indirectly. This is done for every field
+     * in the class.
+     *
      * @return The set of sets of methods using specified class field.
      */
     private List<Integer> computeIndirectMethodSets() {
@@ -362,8 +365,8 @@ public class ClassMeasurer {
         int NIC = 0;              // number of indirect connections
 
         // graph which holds the connections between methods
-        UndirectedGraph<MethodImpl, DefaultEdge> methodGraph =
-                new SimpleGraph<MethodImpl, DefaultEdge>(DefaultEdge.class);
+        UndirectedGraph<MethodImpl, DefaultEdge> methodGraph
+                = new SimpleGraph<MethodImpl, DefaultEdge>(DefaultEdge.class);
         for (MethodImpl m : c.getMethodImpls()) {
             methodGraph.addVertex(m);
         }
@@ -428,20 +431,24 @@ public class ClassMeasurer {
     private void countLOC() throws IOException {
         // calculation of LOC
         c.loc = 0;
-        int start = 0, end = 0; // contain the start and end elements of the 
+        int start = 0, end = 0; // contain the start and end elements of the
         String text = c.fo.asText();
 
         String s = "";
-        switch (c.getCompilationUnitKind()) {
-            case CLASS:
-                s = "class";
-                break;
-            case ENUMERATION:
-                s = "enum";
-                break;
-            case INTERFACE:
-                s = "interface";
-                break;
+        if (c.getCompilationUnitKind() == null && "ANNOTATION_TYPE".equals(c.ct.getKind().toString())) {
+            s = "interface";
+        } else {
+            switch (c.getCompilationUnitKind()) {
+                case CLASS:
+                    s = "class";
+                    break;
+                case ENUMERATION:
+                    s = "enum";
+                    break;
+                case INTERFACE:
+                    s = "interface";
+                    break;
+            }
         }
 
         String p = s + " +" + c.name;
@@ -491,6 +498,7 @@ public class ClassMeasurer {
 
     /**
      * Returns the text depicting the sets of methods.
+     *
      * @param sets The sets of methods.
      * @return Text representing the sets of methods.
      */
